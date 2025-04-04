@@ -1,0 +1,23 @@
+{
+  "name": "toastthk",
+  "version": "1.0.3",
+  "description": "A customizable toast notification library",
+  "main": "toast.js",
+  "scripts": {
+    "test": "echo \\\"No test specified\\\" && exit 0"
+  },
+  "keywords": [
+    "toast",
+    "notification",
+    "popup"
+  ],
+  "author": "Mindy Tran",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "files": [
+    "toast.js",
+    "toast.css"
+  ]
+}

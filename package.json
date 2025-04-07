@@ -16,8 +16,13 @@
   "dependencies": {
     "jquery": "^3.6.0"
   },
-  "files": [
-    "toast.js",
-    "toast.css"
-  ]
+  "files": ["*"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tricoder1205/toastthk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tricoder1205/toastthk/issues"
+  },
+  "homepage": "https://github.com/tricoder1205/toastthk#readme"
 }

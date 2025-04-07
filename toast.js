@@ -1,13 +1,4 @@
-/**
- * Usage Examples:
- * 
- * Toast.show('This is a default toast');
- * Toast.show('Success message', { type: 'success' });
- * Toast.show('Error message', { type: 'error', icon: 'fas fa-bug' });
- * Toast.show('Custom Icon Toast', { icon: 'fas fa-smile', position: 'bottom-left' });
- */
-
-(function (global, $) {
+(function (global) {
     'use strict';
 
     const DEFAULT_OPTIONS = {
@@ -36,30 +27,45 @@
         info: 'fas fa-info-circle'
     };
 
+    function createElementFromHTML(htmlString) {
+        const div = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+        return div.firstChild;
+    }
+
     function showToast(message, options = {}) {
         const config = { ...DEFAULT_OPTIONS, ...options };
         const { type, position, hideProgress, delay, closeOnClick, duration, icon, hideIcon } = config;
 
-        if (!$('.toast-wrapper').length) {
-            $('body').append('<div class="toast-wrapper"></div>');
+        let wrapper = document.querySelector('.toast-wrapper');
+        if (!wrapper) {
+            wrapper = document.createElement('div');
+            wrapper.className = `toast-wrapper ${position}`;
+            document.body.appendChild(wrapper);
+        } else {
+            wrapper.className = `toast-wrapper ${position}`;
         }
 
-        const toasts = $('.toast-wrapper').attr('class', `toast-wrapper ${position}`);
-        const $container = $('<div class="toast-container"></div>');
-        const progressBar = hideProgress ? '' : `<div class="toast-progress-wrap"><div class="toast-progress ${COLORS[type]}\"></div></div>`;
+        const container = document.createElement('div');
+        container.className = 'toast-container';
 
-        const toastIcon = icon ? `<i class="${icon}"></i>` : `<i class="${ICONS[type] || ''}"></i>`;
+        const progressHTML = hideProgress ? '' :
+            `<div class="toast-progress-wrap"><div class="toast-progress ${COLORS[type]}"></div></div>`;
 
-        const $listItem = $(
-            `<div class="toast-item d-flex ${COLORS[type]} align-items-center rounded-lg">
+        const toastIcon = icon ? `<i class="${icon}"></i>` : (ICONS[type] ? `<i class="${ICONS[type]}"></i>` : '');
+
+        const toastHTML = `
+            <div class="toast-item d-flex ${COLORS[type]} align-items-center rounded-lg">
                 ${!hideIcon ? toastIcon : ''}
                 <span>${message}</span>
-                ${progressBar}
-            </div>`
-        );
+                ${progressHTML}
+            </div>`;
 
-        toasts.prepend($container.append($listItem));
-        const $progress = $listItem.find('.toast-progress');
+        const toastItem = createElementFromHTML(toastHTML);
+        container.appendChild(toastItem);
+        wrapper.prepend(container);
+
+        const progressBar = toastItem.querySelector('.toast-progress');
 
         let startTime = Date.now();
         let remainingTime = delay;
@@ -67,38 +73,50 @@
 
         function startTimer() {
             startTime = Date.now();
-            $progress.css({ transition: `width ${remainingTime}ms linear`, width: '0%' });
-            timeoutId = setTimeout(() => removeToast($container, duration), remainingTime);
+            if (progressBar) {
+                progressBar.style.transition = `width ${remainingTime}ms linear`;
+                progressBar.style.width = '0%';
+            }
+            timeoutId = setTimeout(() => removeToast(container, duration), remainingTime);
         }
 
         function pauseTimer() {
             clearTimeout(timeoutId);
             remainingTime -= Date.now() - startTime;
-            $progress.css({ transition: 'none', width: `${(remainingTime / delay) * 100}%` });
+            if (progressBar) {
+                progressBar.style.transition = 'none';
+                progressBar.style.width = `${(remainingTime / delay) * 100}%`;
+            }
         }
 
         setTimeout(() => {
-            $container.addClass('show').css({ transition: `all ${duration}ms ease-out` });
-            $listItem.addClass('show').css({ transition: `all ${duration}ms ease-out` });
-            if (!hideProgress) {
-                $progress.css({ width: '100%' });
+            container.classList.add('show');
+            toastItem.classList.add('show');
+            container.style.transition = `all ${duration}ms ease-out`;
+            toastItem.style.transition = `all ${duration}ms ease-out`;
+
+            if (!hideProgress && progressBar) {
+                progressBar.style.width = '100%';
                 startTimer();
             }
         }, 15);
 
         if (closeOnClick) {
-            $listItem.on('click', () => removeToast($container, duration));
+            toastItem.addEventListener('click', () => removeToast(container, duration));
         }
 
-        $listItem.on('mouseenter', pauseTimer);
-        $listItem.on('mouseleave', startTimer);
+        toastItem.addEventListener('mouseenter', pauseTimer);
+        toastItem.addEventListener('mouseleave', startTimer);
     }
 
-    function removeToast($container, duration) {
-        $container.removeClass('show').find('.toast-item').removeClass('show');
-        setTimeout(() => $container.remove(), duration);
+    function removeToast(container, duration) {
+        container.classList.remove('show');
+        const item = container.querySelector('.toast-item');
+        if (item) item.classList.remove('show');
+
+        setTimeout(() => container.remove(), duration);
     }
 
     global.Toast = { show: showToast };
 
-})(window, jQuery);
+})(window);

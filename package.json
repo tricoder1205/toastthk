@@ -1,6 +1,6 @@
 {
   "name": "toastthk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A customizable toast notification library",
   "main": "toast.js",
   "scripts": {
@@ -16,7 +16,9 @@
   "dependencies": {
     "jquery": "^3.6.0"
   },
-  "files": ["*"],
+  "files": [
+    "*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tricoder1205/toastthk.git"

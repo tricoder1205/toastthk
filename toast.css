@@ -1,6 +1,5 @@
 .toast-wrapper {
     margin: 10px;
-    width: 100%;
     position: fixed;
     display: flex;
     flex-direction: column;

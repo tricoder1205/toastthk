@@ -49,7 +49,7 @@ function showToast(message: string, options: ToastOptions = {}): void {
     const config: ToastOptions = { ...DEFAULT_OPTIONS, ...options };
     const { type, position, hideProgress, delay, closeOnClick, duration, icon, hideIcon } = config;
 
-    let wrapper = document.querySelector('.toast-wrapper') as HTMLElement;
+    let wrapper = document.querySelector('.toastthk-wrapper') as HTMLElement;
     if (!wrapper) {
         wrapper = document.createElement('div');
         wrapper.className = `toast-wrapper ${position}`;
@@ -67,7 +67,7 @@ function showToast(message: string, options: ToastOptions = {}): void {
     const toastIcon = icon ? `<i class="${icon}"></i>` : (ICONS[type!] ? `<i class="${ICONS[type!]}"></i>` : '');
 
     const toastHTML = `
-        <div class="toast-item d-flex ${COLORS[type!]} align-items-center rounded-lg">
+        <div class="toast-item ${COLORS[type!]}">
             ${!hideIcon ? toastIcon : ''}
             <span>${message}</span>
             ${progressHTML}
@@ -77,7 +77,7 @@ function showToast(message: string, options: ToastOptions = {}): void {
     container.appendChild(toastItem);
     wrapper.prepend(container);
 
-    const progressBar = toastItem.querySelector('.toast-progress') as HTMLElement | null;
+    const progressBar = toastItem.querySelector('.toastthk-progress') as HTMLElement | null;
 
     let startTime = Date.now();
     let remainingTime = delay!;
@@ -123,10 +123,20 @@ function showToast(message: string, options: ToastOptions = {}): void {
 
 function removeToast(container: HTMLElement, duration: number) {
     container.classList.remove('show');
-    const item = container.querySelector('.toast-item');
+    const item = container.querySelector('.toastthk-item');
     if (item) item.classList.remove('show');
 
     setTimeout(() => container.remove(), duration);
 }
 
-export const Toast = { show: showToast };
+(window as any).Toast = {
+    show: showToast,
+    success: (message: string, options: ToastOptions = {}) =>
+        showToast(message, { ...options, type: 'success' }),
+    error: (message: string, options: ToastOptions = {}) =>
+        showToast(message, { ...options, type: 'error' }),
+    warning: (message: string, options: ToastOptions = {}) =>
+        showToast(message, { ...options, type: 'warning' }),
+    info: (message: string, options: ToastOptions = {}) =>
+        showToast(message, { ...options, type: 'info' })
+};

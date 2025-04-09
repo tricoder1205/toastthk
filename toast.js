@@ -4,7 +4,7 @@
     const DEFAULT_OPTIONS = {
         type: 'default',
         position: 'top-right',
-        duration: 300,
+        duration: 100,
         delay: 3000,
         hideProgress: false,
         closeOnClick: true,
@@ -37,25 +37,25 @@
         const config = { ...DEFAULT_OPTIONS, ...options };
         const { type, position, hideProgress, delay, closeOnClick, duration, icon, hideIcon } = config;
 
-        let wrapper = document.querySelector('.toast-wrapper');
+        let wrapper = document.querySelector('.toastthk-wrapper');
         if (!wrapper) {
             wrapper = document.createElement('div');
-            wrapper.className = `toast-wrapper ${position}`;
+            wrapper.className = `toastthk-wrapper ${position}`;
             document.body.appendChild(wrapper);
         } else {
-            wrapper.className = `toast-wrapper ${position}`;
+            wrapper.className = `toastthk-wrapper ${position}`;
         }
 
         const container = document.createElement('div');
-        container.className = 'toast-container';
+        container.className = 'toastthk-container';
 
         const progressHTML = hideProgress ? '' :
-            `<div class="toast-progress-wrap"><div class="toast-progress ${COLORS[type]}"></div></div>`;
+            `<div class="toastthk-progress-wrap"><div class="toastthk-progress ${COLORS[type]}"></div></div>`;
 
         const toastIcon = icon ? `<i class="${icon}"></i>` : (ICONS[type] ? `<i class="${ICONS[type]}"></i>` : '');
 
         const toastHTML = `
-            <div class="toast-item d-flex ${COLORS[type]} align-items-center rounded-lg">
+            <div class="toastthk-item ${COLORS[type]}">
                 ${!hideIcon ? toastIcon : ''}
                 <span>${message}</span>
                 ${progressHTML}
@@ -65,7 +65,7 @@
         container.appendChild(toastItem);
         wrapper.prepend(container);
 
-        const progressBar = toastItem.querySelector('.toast-progress');
+        const progressBar = toastItem.querySelector('.toastthk-progress');
 
         let startTime = Date.now();
         let remainingTime = delay;
@@ -111,12 +111,18 @@
 
     function removeToast(container, duration) {
         container.classList.remove('show');
-        const item = container.querySelector('.toast-item');
+        const item = container.querySelector('.toastthk-item');
         if (item) item.classList.remove('show');
 
         setTimeout(() => container.remove(), duration);
     }
 
-    global.Toast = { show: showToast };
+    global.Toast = {
+        show: showToast,
+        success: (msg, options = {}) => showToast(msg, { ...options, type: 'success' }),
+        error: (msg, options = {}) => showToast(msg, { ...options, type: 'error' }),
+        warning: (msg, options = {}) => showToast(msg, { ...options, type: 'warning' }),
+        info: (msg, options = {}) => showToast(msg, { ...options, type: 'info' })
+    };
 
 })(window);

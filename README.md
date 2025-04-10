@@ -99,3 +99,16 @@ Feel free to override the styles in your own CSS file to better suit your needs.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+### ☕ Buy Me a Coffee
+
+This toast notification library was crafted with care and countless cups of coffee ☕.  
+If you find it useful or it saved you time in your project, consider supporting me so I can keep building and maintaining cool open-source tools like this.
+
+<a href="https://www.buymeacoffee.com/mindytran" target="_blank">
+  <img src="https://hoccungdinh.com/wp-content/uploads/2022/06/Buy-me-a-coffee.png" alt="Buy Me a Coffee" width="150"/>
+</a>
+
+Your support fuels more late-night coding sessions, feature improvements, and bug fixes ❤️

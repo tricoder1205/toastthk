@@ -1,6 +1,6 @@
 {
   "name": "toastthk",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A customizable toast notification library",
   "main": "toast.js",
   "scripts": {

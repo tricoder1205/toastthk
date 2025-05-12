@@ -3,6 +3,15 @@
 
 A customizable toast notification library for displaying messages with different styles and durations.
 
+## Table of Contents
+- [Installation](#introduction)
+- [Usage](#usage)
+- [Options](#options)
+- [Examples](#example-with-options)
+- [Customizing the Styles](#customizing-the-styles)
+- [License](#license)
+- [Buy Me a Coffee](#buy-me-a-coffee)
+
 ## Installation
 
 You can install the package via npm:
@@ -42,9 +51,9 @@ Toast.show('This is a default toast');
 Toast.show('Success message', { type: 'success' });
 Toast.success('Success message');
 
-// Display an error toast message with a custom icon
-Toast.show('Error message', { type: 'error', icon: 'fas fa-bug' });
-Toast.error('Success message', { icon: 'fas fa-bug' });
+// Display an danger toast message with a custom icon
+Toast.show('Danger message', { type: 'danger', icon: 'fas fa-bug' });
+Toast.danger('Success message', { icon: 'fas fa-bug' });
 
 // Display a custom toast with an icon and different position
 Toast.show('Custom Icon Toast', { icon: 'fas fa-smile', position: 'bottom-left' });
@@ -64,8 +73,9 @@ You can customize the toast notification by passing options as the second argume
 | `closeOnClick` | `boolean`                   | `true`        | Whether clicking the toast closes it.           |
 | `icon`         | `string`, `null`            | `null`        | Custom icon class name to display.              |
 | `hideIcon`     | `boolean`                   | `false`       | Whether to hide the default icon.               |
+| `outLine`      | `boolean`                   | `false`       | Set background to white.                        |
 
-- **`type`**: The type of the toast (`default`, `success`, `error`, `warning`, `info`). Default is `'default'`.
+- **`type`**: The type of the toast (`default`, `success`, `danger`, `warning`, `info`). Default is `'default'`.
 - **`position`**: The position of the toast on the screen (`top-left`, `top-right`, `bottom-left`, `bottom-right`). Default is `'top-right'`.
 - **`hideProgress`**: Whether to hide the progress bar (`true` or `false`). Default is `false`.
 - **`delay`**: The delay before the toast disappears (in milliseconds). Default is `3000`.
@@ -73,6 +83,7 @@ You can customize the toast notification by passing options as the second argume
 - **`duration`**: The duration of the toast animation (in milliseconds). Default is `300`.
 - **`icon`**: A custom icon for the toast. If not provided, a default icon will be used based on the `type`.
 - **`hideIcon`**: Whether to hide the icon (`true` or `false`). Default is `false`.
+- **`outLine`**: Set background to white (`true` or `false`). Default is `false`.
 
 ### Example with options
 
@@ -102,7 +113,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-### ☕ Buy Me a Coffee
+### Buy Me a Coffee
 
 This toast notification library was crafted with care and countless cups of coffee ☕.  
 If you find it useful or it saved you time in your project, consider supporting me so I can keep building and maintaining cool open-source tools like this.

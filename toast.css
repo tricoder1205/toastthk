@@ -1,79 +1,139 @@
 .toastthk-wrapper {
-    margin: 10px;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    z-index: 9999;
+  margin: 10px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
 }
 
 /* Position toast */
-.toastthk-wrapper.top-left { top: 0; left: 0; align-items: flex-start; }
-.toastthk-wrapper.top-right { top: 0; right: 0; align-items: flex-end; }
-.toastthk-wrapper.bottom-left { bottom: 0; left: 0; align-items: flex-start; }
-.toastthk-wrapper.bottom-right { bottom: 0; right: 0; align-items: flex-end; }
+.toastthk-wrapper.top-left {
+  top: 0;
+  left: 0;
+  align-items: flex-start;
+}
+
+.toastthk-wrapper.top-right {
+  top: 0;
+  right: 0;
+  align-items: flex-end;
+}
+
+.toastthk-wrapper.bottom-left {
+  bottom: 0;
+  left: 0;
+  align-items: flex-start;
+}
+
+.toastthk-wrapper.bottom-right {
+  bottom: 0;
+  right: 0;
+  align-items: flex-end;
+}
 
 /* Toast container */
 .toastthk-container {
-    text-align: center;
-    font-size: 1rem;
-    margin-top: 10px;
-    height: 0;
-    opacity: 1;
-    cursor: pointer;
-    transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 10px;
+  height: 0;
+  opacity: 1;
+  cursor: pointer;
+  transition: 400ms ease-out;
 }
 
-.toastthk-container.show { height: 40px; }
-
 .toastthk-item {
-    padding: 6px;
-    width: max-content;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    display: flex;
-    align-items: center;
-    border-radius: 6px 6px 3px 3px;
-    gap: 8px;
-    transform: translateX(200%);
-    opacity: 0;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  overflow: hidden;
+  max-width: 400px;
+  max-height: 200px;
+  word-wrap: break-word;
+  text-align: start;
+  text-overflow: ellipsis;
+  padding: 8px;
+  width: max-content;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px 6px 3px 3px;
+  gap: 8px;
+  transform: translateX(200%);
+  opacity: 0;
+  transition: 400ms ease-out;
 }
 
 .toastthk-wrapper.top-left .toastthk-item,
-.toastthk-wrapper.bottom-left .toastthk-item { transform: translateX(-200%); }
+.toastthk-wrapper.bottom-left .toastthk-item {
+  transform: translateX(-200%);
+}
+
+.toastthk-container.show {
+  margin: 6px 0;
+}
 
 .toastthk-item.show {
-    opacity: 1;
-    transform: translateX(0);
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Progress bar */
 .toastthk-progress-wrap {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    width: 100%;
-    border-radius: 0 0 6px 6px;
-    overflow: hidden;
-    background: #b9b9b9;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  border-radius: 0 0 6px 6px;
+  overflow: hidden;
+  background: #b9b9b9;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .toastthk-progress {
-    width: 100%;
-    height: 3px;
-    transition: width linear;
+  width: 100%;
+  height: 3px;
+  transition: width linear;
 }
 
-.toastthk-progress.show { width: 0%; }
+.toastthk-progress.show {
+  width: 0%;
+}
 
 /* Colors */
-.toastthk-item.bg-success .toastthk-progress { background: #7ef89a !important; }
-.toastthk-item.bg-danger .toastthk-progress { background: #f95868 !important; }
-.toastthk-item.bg-warning .toastthk-progress { background: #f7d56f !important; }
-.toastthk-item.bg-info .toastthk-progress { background: #66ebff !important; }
+.toastthk-item.success .toastthk-progress {
+  background: #7ef89a !important;
+}
 
-.toastthk-item.bg-success .toastthk-progress-wrap { background: #2b5e37; }
-.toastthk-item.bg-danger .toastthk-progress-wrap { background: #6b2c32; }
-.toastthk-item.bg-warning .toastthk-progress-wrap { background: #7b6b3a; }
-.toastthk-item.bg-info .toastthk-progress-wrap { background: #58adba; }
+.toastthk-item.danger .toastthk-progress {
+  background: #f95868 !important;
+}
+
+.toastthk-item.warning .toastthk-progress {
+  background: #f7d56f !important;
+}
+
+.toastthk-item.info .toastthk-progress {
+  background: #66ebff !important;
+}
+
+.toastthk-item.success .toastthk-progress-wrap {
+  background: #5cc374;
+}
+
+.toastthk-item.danger .toastthk-progress-wrap {
+  background: #9b4049;
+}
+
+.toastthk-item.warning .toastthk-progress-wrap {
+  background: #c1a75b;
+}
+
+.toastthk-item.info .toastthk-progress-wrap {
+  background: #53c7d9;
+}
+
+@media screen and (max-width: 768px) {
+  .toastthk-container {
+    max-width: 250px;
+    max-height: 250px;
+  }
+}
